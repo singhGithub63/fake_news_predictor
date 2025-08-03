@@ -4,9 +4,10 @@ from flask import Flask, request, render_template, jsonify
 from transformers import BertForSequenceClassification, BertTokenizer
 import sys
 
+
 # --- Configuration & Model Loading ---
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-BERT_MODEL_NAME = "bert-base-uncased"
+DEVICE = torch.device("cpu") # Forcing CPU can sometimes save memory on startup
+BERT_MODEL_NAME = "distilbert-base-uncased" # ✅ The new, lighter model
 MAX_LENGTH = 256
 
 # --- Pre-load Model and Tokenizer ---
@@ -86,4 +87,3 @@ if __name__ == '__main__':
     # NOTE: In a real production environment, use a proper web server like Gunicorn or Waitress.
     # Example: waitress-serve --host 127.0.0.1 --port 5000 app:app
     app.run(debug=False, host='0.0.0.0')
-    

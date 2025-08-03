@@ -1,0 +1,145 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    color: #1a2c50;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+}
+
+#result-container {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    min-height: 30px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#result-text {
+    margin: 0;
+}
+
+/* Dynamic classes for result styling */
+.result-real {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.result-fake {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.result-neutral {
+     background-color: #e2e3e5;
+     color: #383d41;
+}
+/* --- Video Background & Overlay Styles --- */
+#bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2; /* Places it far behind everything */
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover; /* Ensures the video covers the screen without distortion */
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+    z-index: -1; /* Sits on top of the video but behind your content */
+}
+/* --- End Video Styles --- */
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* The background-color is now a fallback for when the video can't load */
+    background-color: #1a2c50; 
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+

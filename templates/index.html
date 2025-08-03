@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Fake News Detector</h1>
+        <p class="subtitle">Enter a news headline below to check if it's real or fake.</p>
+        
+        <textarea id="headline-input" placeholder="e.g., Scientists discover that chocolate is good for you..."></textarea>
+        
+        <button id="predict-btn">Analyze Headline</button>
+        
+        <div id="result-container">
+            <p id="result-text"></p>
+        </div>
+    </div>
+<div class="video-overlay"></div>
+    <video id="bg-video" autoplay loop muted playsinline>
+        <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+   
+    <script>
+        const predictBtn = document.getElementById('predict-btn');
+        const headlineInput = document.getElementById('headline-input');
+        const resultText = document.getElementById('result-text');
+        const resultContainer = document.getElementById('result-container');
+
+        predictBtn.addEventListener('click', async () => {
+            const headline = headlineInput.value.trim();
+
+            if (headline === "") {
+                resultText.textContent = "Please enter a headline first.";
+                resultContainer.className = 'result-neutral';
+                return;
+            }
+
+            // Show a loading state
+            resultText.textContent = "Analyzing...";
+            resultContainer.className = 'result-neutral';
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ headline: headline })
+                });
+                
+                const data = await response.json();
+
+                if (data.prediction) {
+                    const prediction = data.prediction;
+                    resultText.textContent = `Prediction: ${prediction}`;
+                    
+                    // Apply style based on result
+                    if (prediction === 'FAKE') {
+                        resultContainer.className = 'result-fake';
+                    } else if (prediction === 'REAL') {
+                        resultContainer.className = 'result-real';
+                    } else {
+                         resultContainer.className = 'result-neutral';
+                    }
+
+                } else {
+                    resultText.textContent = data.error || "An unknown error occurred.";
+                    resultContainer.className = 'result-neutral';
+                }
+
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                resultText.textContent = "Could not connect to the server.";
+                resultContainer.className = 'result-neutral';
+            }
+        });
+    </script>
+
+</body>
+</html>
